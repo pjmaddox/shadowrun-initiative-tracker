@@ -1,6 +1,7 @@
 //ActionTypes
 export const ADD_COMBATANT = "ADD_COMBATANT";
 export const REMOVE_COMBATANT = "REMOVE_COMBATANT";
+export const CLEAR_ALL = "CLEAR_ALL";
 
 //Const Values
 
@@ -21,4 +22,11 @@ export const removeCombatant = targetCombatantId => {
             combatantId: targetCombatantId
         }
     }
+};
+
+export const clearAll = () => {
+    return {
+        type: CLEAR_ALL,
+        payload: {  }
+    };
 };
