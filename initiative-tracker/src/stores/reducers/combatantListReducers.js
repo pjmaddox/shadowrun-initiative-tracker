@@ -7,9 +7,7 @@ const INITIAL_STATE = {
 };
 
 //App Reducer
-export const initiativeApp = (previousState, action) => {
-    if (previousState === undefined || previousState === null)
-        return initiativeApp(INITIAL_STATE, action);
+export const initiativeApp = (previousState = INITIAL_STATE, action) => {
 
     if(action === undefined || action.type === undefined)
         return previousState;
