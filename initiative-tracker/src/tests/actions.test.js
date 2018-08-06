@@ -1,8 +1,8 @@
-import addCombatant from '../stores/action/actions.js';
-import ADD_COMBATANT from '../stores/action/actions.js';
+import { addCombatant } from '../stores/actions/actions.js';
+import { ADD_COMBATANT } from '../stores/actions/actions.js';
 
-import removeCombatant from '../stores/action/actions.js';
-import REMOVE_COMBATANT from '../stores/action/actions.js';
+import { removeCombatant } from '../stores/actions/actions.js';
+import { REMOVE_COMBATANT } from '../stores/actions/actions.js';
 
 let expectedCombatantId;
 
@@ -18,7 +18,7 @@ describe("removeCombatant", () => {
 
     it("should generate an action with a payload object", () => {
         let result = removeCombatant(expectedCombatantId);
-        expect(result.payload).toEqual(true);
+        expect(result.payload).not.toBeNull();
     });
 
     it("should generate an action with a payload that contains the given id ", () => {
@@ -35,7 +35,7 @@ describe("addCombatant", () => {
 
     it("should generate an action with a payload object", () => {
         let result = addCombatant(expectedCombatantId);
-        expect(result.payload).toEqual(true);
+        expect(result.payload).not.toBeNull();
     });
 
     it("should generate an action with a payload that contains the given id ", () => {
