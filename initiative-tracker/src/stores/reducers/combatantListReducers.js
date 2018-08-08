@@ -15,10 +15,10 @@ export const initiativeApp = (previousState = INITIAL_STATE, action) => {
     
         switch(action.type) {
             case ADD_COMBATANT:
-                return { ...previousState, ...{ combatants: _.concat(previousState.combatants, action.payload.newCombatantObject) } };
+                return { ...previousState, ...{ combatants: combatants(previousState.combatants, action) } };
                 break;
             case REMOVE_COMBATANT:
-                return { ...previousState, ...{ combatants: _.filter(previousState.combatants, (val, index) => { return index != action.payload.targetIndex }) } };
+                return { ...previousState, ...{ combatants: combatants(previousState.combatants, action) } };
                 break;    
             case CLEAR_ALL:
                 return INITIAL_STATE;
@@ -26,4 +26,20 @@ export const initiativeApp = (previousState = INITIAL_STATE, action) => {
             default:
                 return previousState;
         }
+};
+
+export const combatants = (previousState = [], action) => {
+    switch(action.type) {
+        case ADD_COMBATANT:
+            return _.concat(previousState.combatants, action.payload.newCombatantObject);
+            break;
+        case REMOVE_COMBATANT:
+            return _.filter(previousState.combatants, (val, index) => { return index != action.payload.targetIndex });
+            break;    
+        case CLEAR_ALL:
+            return [];
+            break;
+        default:
+            return previousState;
+    }
 };
