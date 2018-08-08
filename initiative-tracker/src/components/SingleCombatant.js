@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-//import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 class SingleCombatant extends Component {
     render() {
@@ -11,9 +11,9 @@ class SingleCombatant extends Component {
     }
 }
 
-// SingleCombatant.propTypes = {
-//     id: PropTypes.number.isRequired,
-//     name: PropTypes.string.isRequired
-// };
+SingleCombatant.propTypes = {
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired
+};
 
 export default SingleCombatant;

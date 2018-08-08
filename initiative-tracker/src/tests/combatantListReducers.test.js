@@ -32,7 +32,21 @@ describe("initiativeApp", () => {
         expect(result).toEqual(prevState);
     });
 
-    // it("should return the result of the action when there is not current state, but a valid action", () => {
-    //     expect(true).toEqual(false);
-    // });
+    it("should return the result of the action when there is not current state, but a valid action", () => {
+        let previousState = undefined
+        let newCombatant = { name: "Sam" };
+        let action = { type: ADD_COMBATANT, payload: newCombatant };
+        let result = initiativeApp(previousState, action);
+        expect(result.combatants.contains(newCombatant)).toEqual(true);
+        expect(result.combatants.length).toEqual(1);
+    });
+
+    it("should add the expected combatant data to the combatant list when type is ADD_COMBATANT", () => {
+        let previousState = { combatants: [ { name: "George" } ] };
+        let newCombatant = { name: "Sam" };
+        let action = { type: ADD_COMBATANT, payload: newCombatant };
+        let result = initiativeApp(previousState, action);
+        expect(result.combatants.length).toEqual(2);
+        expect(result.combatants.contains(newCombatant)).toEqual(true);
+    });
 });
