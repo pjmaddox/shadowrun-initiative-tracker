@@ -1,5 +1,6 @@
 import { initiativeApp } from "../stores/reducers/combatantListReducers.js";
-import { ADD_COMBATANT, REMOVE_COMBATANT } from "../stores/actions/actions.js";
+import { ADD_COMBATANT, REMOVE_COMBATANT, CLEAR_ALL } from "../stores/actions/actions.js";
+import _ from 'lodash';
 
 const initialState = {
     combatants: [ ]
@@ -36,8 +37,9 @@ describe("initiativeApp", () => {
         let previousState = undefined
         let newCombatant = { name: "Sam" };
         let action = { type: ADD_COMBATANT, payload: { newCombatantObject: newCombatant} };
-        let result = initiativeApp(previousState, action);
-        expect(result.combatants.contains(newCombatant)).toEqual(true);
+        let result = initiativeApp(previousState, action);        
+
+        expect(_.indexOf(result.combatants, newCombatant)).toBeGreaterThanOrEqual(0);
         expect(result.combatants.length).toEqual(1);
     });
 
@@ -46,17 +48,25 @@ describe("initiativeApp", () => {
         let newCombatant = { name: "Sam" };
         let action = { type: ADD_COMBATANT, payload: { newCombatantObject: newCombatant } };
         let result = initiativeApp(previousState, action);
+
         expect(result.combatants.length).toEqual(2);
-        expect(result.combatants.contains(newCombatant)).toEqual(true);
+        expect(_.indexOf(result.combatants, newCombatant)).toBeGreaterThanOrEqual(0);
     });
 
     it("should remove the expected combatant data from the combatant list when type is REMOVE_COMBATANT", () => {
-        let previousState = { combatants: [ { name: "George" }, { name: "Sam"}, { name: "Juan"}, { name: "Rodrigo"} ] };
         let expectedRemovedCombatant = { name: "Juan"};
+        let previousState = { combatants: [ { name: "George" }, { name: "Sam"}, expectedRemovedCombatant, { name: "Rodrigo"} ] };
         let removalId = 2;
         let action = { type: REMOVE_COMBATANT, payload: { targetIndex: removalId } };
         let result = initiativeApp(previousState, action);
-        expect(result.combatants.length).toEqual(2);
-        expect(result.combatants.contains(expectedRemovedCombatant)).toEqual(false);
+        expect(result.combatants.length).toEqual(3);
+        expect(_.indexOf(result.combatants, expectedRemovedCombatant)).toBeLessThan(0);
+    });
+
+    it("should remove all entries from the combatant list when type is CLEAR_ALL", () => {
+        let previousState = { combatants: [ { name: "George" }, { name: "Sam"}, { name: "Juan"}, { name: "Rodrigo"} ] };
+        let action = { type: CLEAR_ALL, payload: {  } };
+        let result = initiativeApp(previousState, action);
+        expect(result.combatants.length).toEqual(0);
     });
 });
