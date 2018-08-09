@@ -9,32 +9,30 @@ const INITIAL_STATE = {
 };
 
 //App Reducer
-export const initiativeApp = (previousState = INITIAL_STATE, action) => {
+// export const initiativeApp = (previousState = INITIAL_STATE, action) => {
 
-    if(action === undefined || action.type === undefined)
-        return previousState;
+//     if(action === undefined || action.type === undefined)
+//         return previousState;
     
-        switch(action.type) {
-            case ADD_COMBATANT:
-                return { ...previousState, ...{ combatants: combatants(previousState.combatants, action) } };
-                break;
-            case REMOVE_COMBATANT:
-                return { ...previousState, ...{ combatants: combatants(previousState.combatants, action) } };
-                break;    
-            case CLEAR_ALL:
-                return INITIAL_STATE;
-                break;
-            default:
-                return previousState;
-        }
-};
+//         switch(action.type) {
+//             case ADD_COMBATANT:
+//                 return { ...previousState, ...{ combatants: combatants(previousState.combatants, action) } };
+//                 break;
+//             case REMOVE_COMBATANT:
+//                 return { ...previousState, ...{ combatants: combatants(previousState.combatants, action) } };
+//                 break;    
+//             case CLEAR_ALL:
+//                 return INITIAL_STATE;
+//                 break;
+//             default:
+//                 return previousState;
+//         }
+// };
 
-//Using redux combineReducers method:
-// export const initiativeApp = combineReducers({
-//     combatants
-// });
+const combatants = (previousCombatantState = [], action) => {
+    if(action === undefined || action.type === undefined)
+        return previousCombatantState;
 
-export const combatants = (previousCombatantState = [], action) => {
     switch(action.type) {
         case ADD_COMBATANT:
             return _.concat(previousCombatantState, action.payload.newCombatantObject);
@@ -49,3 +47,7 @@ export const combatants = (previousCombatantState = [], action) => {
             return previousCombatantState;
     }
 };
+
+export const initiativeApp = combineReducers({
+    combatants
+});

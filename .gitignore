@@ -59,3 +59,7 @@ typings/
 
 # next.js build output
 .next
+initiative-tracker/workLaptopEc2KeyPair.pem
+
+# any identity files
+*.pem
