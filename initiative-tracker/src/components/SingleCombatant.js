@@ -13,7 +13,10 @@ class SingleCombatant extends Component {
 
 SingleCombatant.propTypes = {
     id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    initiativeValueUpdateFunction: PropTypes.func.isRequired,
+    isDeadToggleFunction: PropTypes.func.isRequired,
+    togglePassFunction: PropTypes.func.isRequired
 };
 
 export default SingleCombatant;

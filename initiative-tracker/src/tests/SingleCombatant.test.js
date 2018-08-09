@@ -6,12 +6,19 @@ import Adapter from "enzyme-adapter-react-16";
 
 configure({ adapter: new Adapter() });
 
-let shallowNode, expectedName, expectedId;
+let shallowNode, expectedName, expectedId, mockIsDeadToggleFunction, mockTogglePassFunction, mockUpdateInitiativeValueFunction;
 
 beforeEach(() => {
     expectedId = 0;
     expectedName = "sassafrass";
-    shallowNode = shallow(<SingleCombatant id={expectedId} name={expectedName} />);
+    mockIsDeadToggleFunction = jest.fn();
+    mockTogglePassFunction = jest.fn();
+    mockUpdateInitiativeValueFunction = jest.fn();
+    shallowNode = shallow(<SingleCombatant id={expectedId} name={expectedName} 
+            isDeadToggleFunction={mockIsDeadToggleFunction} 
+            initiativeValueUpdateFunction={mockUpdateInitiativeValueFunction}
+            togglePassFunction={mockTogglePassFunction}
+        />);
 });
 
 it("should render a div with the class 'combatantContainer", () => {
