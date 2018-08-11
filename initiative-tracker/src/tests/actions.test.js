@@ -12,10 +12,11 @@ import { TOGGLE_COMBATANT_PASS, toggleCombatantPass } from '../stores/actions/ac
 import { NEW_PASS, newPass } from '../stores/actions/actions.js';
 import { TOGGLE_DEAD, toggleDead } from '../stores/actions/actions.js';
 
-let expectedCombatantId;
+let expectedCombatantId, expectedCombatantName;
 
 beforeEach(() => {
     expectedCombatantId = 24;
+    expectedCombatantName = "Test Combatant Name"
 });
 
 describe("toggleDead", () => {
@@ -109,18 +110,18 @@ describe("removeCombatant", () => {
 
 describe("addCombatant", () => {
     it("should generate an action with the type 'ADD_COMBATANT'", () => {
-        let result = addCombatant(24);
+        let result = addCombatant("Samuel");
         expect(result.type).toEqual(ADD_COMBATANT);
     });
 
     it("should generate an action with a payload object", () => {
-        let result = addCombatant(expectedCombatantId);
+        let result = addCombatant(expectedCombatantName);
         expect(result.payload).not.toBeNull();
     });
 
     it("should generate an action with a payload that contains the given id ", () => {
-        let result = addCombatant(expectedCombatantId);
-        expect(result.payload.combatantId).toEqual(expectedCombatantId);
+        let result = addCombatant(expectedCombatantName);
+        expect(result.payload.newCombatantObject.name).toEqual(expectedCombatantName);
     });
 });
 

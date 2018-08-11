@@ -1,12 +1,67 @@
-import { initiativeApp } from "../stores/reducers/combatantListReducers.js";
-import { ADD_COMBATANT, REMOVE_COMBATANT, CLEAR_ALL } from "../stores/actions/actions.js";
+import initiativeApp from "../stores/reducers/combatantListReducers.js";
+import { ADD_COMBATANT, REMOVE_COMBATANT, CLEAR_ALL, TOGGLE_DEAD, NEW_PASS, TOGGLE_COMBATANT_PASS } from "../stores/actions/actions.js";
+import { addCombatant, removeCombatant, clearAll, toggleDead, newPass, toggleCombatantPass } from "../stores/actions/actions.js";
 import _ from 'lodash';
 
 const initialState = {
     combatants: [ ]
 };
 
+describe("initiative app reducer functions", () => {
+    let previousState;
+
+    beforeEach(() => {
+        previousState = {
+            combatants: [ { name: "John", hasGoneThisPass: false, isDead: false, currentInitiative: 56 }, 
+            { name: "Sammy", hasGoneThisPass: true, isDead: false, currentInitiative: 10 }, 
+            { name: "Juan", hasGoneThisPass: true, isDead: false, currentInitiative: 5 }  ]
+        };
+    });
+
+    it("should change the target combatant's dead flag to the current opposite when type = 'TOGGLE_DEAD'", () => {
+        let expectedTargetCombatant = 0;
+        let newAction = toggleDead(0);
+        let result = initiativeApp(previousState, newAction);
+        expect(result.combatants[0].isDead).toEqual(true);
+    });
+
+    it("should change all combatant's hasGoneThisPass to false", () => {
+        let newAction = newPass();
+        let result = initiativeApp(previousState, newAction);
+        _.forEach(result.combatants, (currentCombatant) => {
+            expect(currentCombatant.hasGoneThisPass).toEqual(false);
+        });
+    });
+
+    it("should subtract 10 from combatant's initiative value when 'TOGGLE_COMBATANT_PASS'", () => {
+        let combatantIndex = 1;
+        let expectedNewInitiative = previousState.combatants[combatantIndex].currentInitiative - 10;
+        let newAction = toggleCombatantPass(combatantIndex);
+        let result = initiativeApp(previousState, newAction);
+        expect(result.combatants[combatantIndex].currentInitiative).toEqual(expectedNewInitiative);
+    });
+
+    it("should set initiative to zero when 'TOGGLE_COMBATANT_PASS' and currentInitiative is less than 10", () => {
+        let combatantIndex = 2;
+        let expectedNewInitiative = 0;
+        let newAction = toggleCombatantPass(combatantIndex);
+        let result = initiativeApp(previousState, newAction);
+        expect(result.combatants[combatantIndex].currentInitiative).toEqual(expectedNewInitiative);
+    });
+
+    it("should change the target combatant's initiative value to be the new value when 'UPDATE_INITIATIVE'",() => {
+        let expectedNewInitiativeValue = 999;
+        let targetCombatantIndex = 0;
+        let newAction = updateInitiative(targetCombatantIndex, expectedNewInitiativeValue);
+        let result = initiativeApp(previousState, newAction);
+        expect(result.combatants[targetCombatantIndex].currentInitiative).toEqual(expectedNewInitiativeValue);
+    });
+
+    it("should ");
+});
+
 describe("initiativeApp", () => {
+
     it("should return an empty list of combatants when no current state and no action given", () => {
         let result = initiativeApp(undefined, undefined);
         expect(result).toEqual(initialState);

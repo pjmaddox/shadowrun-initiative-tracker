@@ -10,11 +10,13 @@ export const TOGGLE_DEAD = "TOGGLE_DEAD";
 //Const Values
 
 //ActionCreators
-export const addCombatant = targetCombatantId => {
+export const addCombatant = newCombatantName => {
     return {
         type: ADD_COMBATANT,
         payload: {
-            combatantId: targetCombatantId
+            newCombatantObject: {
+                name: newCombatantName
+            }
         }
     };
 };

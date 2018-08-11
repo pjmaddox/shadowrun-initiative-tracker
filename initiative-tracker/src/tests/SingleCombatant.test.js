@@ -21,7 +21,15 @@ beforeEach(() => {
         />);
 });
 
+it("", () => {
+    
+});
+
 it("should render a div with the class 'combatantContainer", () => {
     const result = shallowNode.find(".combatantContainer");
     expect(result.length).toEqual(1);
+});
+
+it("", () => {
+
 });

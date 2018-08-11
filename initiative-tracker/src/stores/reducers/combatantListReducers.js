@@ -1,6 +1,10 @@
-import { ADD_COMBATANT, addCombatant } from "../actions/actions.js";
-import { REMOVE_COMBATANT, removeCombatant } from "../actions/actions.js";
-import { CLEAR_ALL, clearAll } from "../actions/actions.js";
+import { ADD_COMBATANT, addCombatant } from '../stores/actions/actions.js';
+import { REMOVE_COMBATANT, removeCombatant } from '../stores/actions/actions.js';
+import { CLEAR_ALL, clearAll } from '../stores/actions/actions.js';
+import { UPDATE_INITIATIVE, updateInitiative } from '../stores/actions/actions.js';
+import { TOGGLE_COMBATANT_PASS, toggleCombatantPass } from '../stores/actions/actions.js';
+import { NEW_PASS, newPass } from '../stores/actions/actions.js';
+import { TOGGLE_DEAD, toggleDead } from '../stores/actions/actions.js';
 import _ from "lodash";
 import { combineReducers } from "redux";
 
@@ -8,30 +12,11 @@ const INITIAL_STATE = {
     combatants: [  ]
 };
 
-//App Reducer
-// export const initiativeApp = (previousState = INITIAL_STATE, action) => {
-
-//     if(action === undefined || action.type === undefined)
-//         return previousState;
-    
-//         switch(action.type) {
-//             case ADD_COMBATANT:
-//                 return { ...previousState, ...{ combatants: combatants(previousState.combatants, action) } };
-//                 break;
-//             case REMOVE_COMBATANT:
-//                 return { ...previousState, ...{ combatants: combatants(previousState.combatants, action) } };
-//                 break;    
-//             case CLEAR_ALL:
-//                 return INITIAL_STATE;
-//                 break;
-//             default:
-//                 return previousState;
-//         }
-// };
-
 const combatants = (previousCombatantState = [], action) => {
     if(action === undefined || action.type === undefined)
         return previousCombatantState;
+
+    let arrayCopy;
 
     switch(action.type) {
         case ADD_COMBATANT:
@@ -43,11 +28,37 @@ const combatants = (previousCombatantState = [], action) => {
         case CLEAR_ALL:
             return [];
             break;
+        case TOGGLE_DEAD:
+            arrayCopy = previousCombatantState.slice(0);
+            arrayCopy[action.targetCombatantId].isDead = !arrayCopy[action.targetCombatantId].isDead;
+            return arrayCopy;
+            break;
+        case TOGGLE_COMBATANT_PASS:
+            arrayCopy = previousCombatantState.slice(0);
+            arrayCopy[action.targetCombatantId].hasGoneThisPass = !arrayCopy[action.targetCombatantId].hasGoneThisPass;
+            return arrayCopy;
+            break;
+        case UPDATE_INITIATIVE:
+            arrayCopy = previousCombatantState.slice(0);
+            arrayCopy[action.targetCombatantId].currentInitiative = action.newInitiativeValue;
+            return arrayCopy;
+            break;
+        case NEW_PASS:
+            return _.map(previousCombatantState, (currentCombatantObject) => {
+                let newInitiative = currentCombatantObject.currentInitiative - 10;
+                newInitiative = (newInitiative < 0)? 0 : newInitiative;
+                return {
+                    ...currentCombatantObject,
+                    hasGoneThisPass: false,
+                    currentIniviative: newInitiative
+                }
+            });
+            break;
         default:
             return previousCombatantState;
     }
 };
 
-export const initiativeApp = combineReducers({
+export default combineReducers({
     combatants
 });

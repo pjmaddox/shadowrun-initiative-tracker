@@ -5,7 +5,7 @@ class SingleCombatant extends Component {
     render() {
         return (
             <div className="combatantContainer">
-
+                
             </div>
         );
     }
