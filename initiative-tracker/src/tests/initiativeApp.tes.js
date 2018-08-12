@@ -1,4 +1,4 @@
-import initiativeApp from "../stores/reducers/combatantListReducers.js";
+import initiativeApp from "../stores/reducers/initiativeApp";
 import { ADD_COMBATANT, REMOVE_COMBATANT, CLEAR_ALL, TOGGLE_DEAD, NEW_PASS, TOGGLE_COMBATANT_PASS } from "../stores/actions/actions.js";
 import { addCombatant, removeCombatant, clearAll, toggleDead, newPass, toggleCombatantPass } from "../stores/actions/actions.js";
 import _ from 'lodash';
@@ -17,6 +17,32 @@ describe("initiative app reducer functions", () => {
             { name: "Juan", hasGoneThisPass: true, isDead: false, currentInitiative: 5 }  ]
         };
     });
+
+    it("should remove the combatant in target index when 'REMOVE_COMBATANT",() => {
+        let combatantThatShouldntExist = { name: "Sammy", hasGoneThisPass: true, isDead: false, currentInitiative: 10 };
+        let action = removeCombatant(1);
+        let result = initiativeApp(previousState, action);
+        
+        expect(result.combatants.length).toEqual(2);
+        expect(_.any(result.combatants, combatantThatShouldntExist)).toEqual(false);
+    });
+
+    it("should add a combatant object with correct values to the combatants list when 'ADD_COMBATANT'", () => {
+        let expectedCombatantName = "Steven";
+        let expectedCombatantIsDeadValue = false;
+        let expectedCombatantHasGoneThisPassValue = false;
+        let expectedCurrentInitiativeValue = 0;
+        let action = addCombatant("Steven");
+        let result = initiativeApp(previousState, action);
+        let expectedCombatantObject = {
+            name: expectedCombatantName,
+            hasGoneThisPass: expectedCombatantHasGoneThisPassValue,
+            isDead: expectedCombatantIsDeadValue,
+            currentInitiative: expectedCurrentInitiativeValue
+        };
+        expect(_.some(result.combatants, expectedCombatantObject));
+        expect(result.combatants.length).toEqual(4);
+    })
 
     it("should change the target combatant's dead flag to the current opposite when type = 'TOGGLE_DEAD'", () => {
         let expectedTargetCombatant = 0;
@@ -60,7 +86,7 @@ describe("initiative app reducer functions", () => {
     it("should ");
 });
 
-describe("initiativeApp", () => {
+describe("initiativeApp base behavior", () => {
 
     it("should return an empty list of combatants when no current state and no action given", () => {
         let result = initiativeApp(undefined, undefined);

@@ -1,10 +1,10 @@
-import { ADD_COMBATANT, addCombatant } from '../stores/actions/actions.js';
-import { REMOVE_COMBATANT, removeCombatant } from '../stores/actions/actions.js';
-import { CLEAR_ALL, clearAll } from '../stores/actions/actions.js';
-import { UPDATE_INITIATIVE, updateInitiative } from '../stores/actions/actions.js';
-import { TOGGLE_COMBATANT_PASS, toggleCombatantPass } from '../stores/actions/actions.js';
-import { NEW_PASS, newPass } from '../stores/actions/actions.js';
-import { TOGGLE_DEAD, toggleDead } from '../stores/actions/actions.js';
+import { ADD_COMBATANT } from '../actions/actions.js';
+import { REMOVE_COMBATANT } from '../actions/actions.js';
+import { CLEAR_ALL } from '../actions/actions.js';
+import { UPDATE_INITIATIVE } from '../actions/actions.js';
+import { TOGGLE_COMBATANT_PASS } from '../actions/actions.js';
+import { NEW_PASS } from '../actions/actions.js';
+import { TOGGLE_DEAD } from '../actions/actions.js';
 import _ from "lodash";
 import { combineReducers } from "redux";
 
