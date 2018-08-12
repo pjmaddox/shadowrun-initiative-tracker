@@ -2,11 +2,13 @@ FROM node:latest
 
 WORKDIR /user/src/app
 
+#NOTE?! Do we need to do this? the build should have everything, right?
+
 #Copy package json into image so we can install dependencies
 #from package*.json to the current working directory in the image "./"
 COPY package*.json ./
 
-# Run npm install in the current working directory off the newly added package.json and package.lock.json files
+# # Run npm install in the current working directory off the newly added package.json and package.lock.json files
 RUN npm install --only=production
 
 # Copy everything from the build directory into the current working directory in the docker image
