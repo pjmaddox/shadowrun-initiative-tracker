@@ -16,7 +16,8 @@ SingleCombatant.propTypes = {
     name: PropTypes.string.isRequired,
     initiativeValueUpdateFunction: PropTypes.func.isRequired,
     isDeadToggleFunction: PropTypes.func.isRequired,
-    togglePassFunction: PropTypes.func.isRequired
+    togglePassFunction: PropTypes.func.isRequired,
+    removeCombatantFunction: PropTypes.func.isRequired
 };
 
 export default SingleCombatant;
