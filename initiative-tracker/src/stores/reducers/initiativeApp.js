@@ -47,9 +47,10 @@ const combatants = (previousCombatantState = [], action) => {
             return _.map(previousCombatantState, (currentCombatantObject) => {
                 let newInitiative = currentCombatantObject.currentInitiative - 10;
                 newInitiative = (newInitiative < 0)? 0 : newInitiative;
+                let shouldGetTurnthisPass = (newInitiative > 0);
                 return {
                     ...currentCombatantObject,
-                    hasGoneThisPass: false,
+                    hasGoneThisPass: shouldGetTurnthisPass,
                     currentIniviative: newInitiative
                 }
             });

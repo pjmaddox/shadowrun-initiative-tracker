@@ -2,8 +2,20 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import SingleCombatant from './components/SingleCombatant';
+import { createStore } from "redux";
+import initiativeApp from "./stores/reducers/initiativeApp.js";
+import CombatantList from './components/CombatantList';
+
+let store = createStore(initiativeApp);
 
 class App extends Component {
+  componentDidMount() {
+    this.state = store.getState();
+    store.subscribe(this.handleStoreUpdate);
+  }
+  handleStoreUpdate() {
+    this.setState(store.getState());
+  }
   render() {
     return (
       <div className="App">
@@ -16,6 +28,7 @@ class App extends Component {
         </p>
         <div className="combatantAppContainer">
             <h2>This is the container for the app itself.</h2>
+            {/* <CombatantList listOfCombatants={this.state.combatants} /> */}
         </div>
       </div>
     );

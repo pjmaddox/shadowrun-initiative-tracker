@@ -55,7 +55,8 @@ describe("initiative app reducer functions", () => {
         let newAction = newPass();
         let result = initiativeApp(previousState, newAction);
         _.forEach(result.combatants, (currentCombatant) => {
-            expect(currentCombatant.hasGoneThisPass).toEqual(false);
+            if (currentCombatant.currentInitiative > 0)
+                expect(currentCombatant.hasGoneThisPass).toEqual(false);
         });
     });
 
