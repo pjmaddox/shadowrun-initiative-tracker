@@ -31,8 +31,7 @@ export default class CombatantList extends Component {
     }
     render() {
         let list = _.map(this.state.listOfCombatants, (x, index) => {
-            return (<div className="row"><SingleCombatant  
-                key={index}
+            return (<div className="row" key={index}><SingleCombatant  
                 id={index}
                 name={x.name}
                 currentInitiative={x.currentInitiative}
@@ -45,13 +44,31 @@ export default class CombatantList extends Component {
         /></div>);
         });
         return (
-            <div className="combatantListContainer">
-                {list}
+            <div className="container">
+                <div className="row">
+                    <div className="combatantListContainer col-sm-12">
+                        {list}
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="combatantListControls col-sm-12">
+                        <div className="row">
+                            <div className="col-sm-6">
+                                <button id="clearAllButton" onClick={ (e) => { this.props.clearAllCallbackFunction(); } }>Clear All</button>
+                            </div>
+                            <div className="col-sm-6">
+                                <button id="newPassButton" onClick={(e) => { this.props.newPassCallbackFunction(); }}>New Pass</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
 }
 
 CombatantList.propTypes = {
-    listOfCombatants: PropTypes.array
+    listOfCombatants: PropTypes.array,
+    clearAllCallbackFunction: PropTypes.func.isRequired,
+    newPassCallbackFunction: PropTypes.func.isRequired
 }

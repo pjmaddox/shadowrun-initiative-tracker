@@ -7,9 +7,11 @@ import SingleCombatant from "../components/SingleCombatant.js";
 configure({ adapter: new Adapter() });
 
 describe("rendering the single combatants", () => {
-    let shallowNode, listOfCombatants, correctlyOrderedCombatants;
+    let shallowNode, listOfCombatants, correctlyOrderedCombatants, mockClearAllFunction, mockNewPassFunction;
 
     beforeEach(() => {
+        mockClearAllFunction = jest.fn();
+        mockNewPassFunction = jest.fn();
         listOfCombatants = [
             { name: "Sammy", currentInitiative: 10, isDead: false, hasGoneThisPass: false },
             { name: "Joey", currentInitiative: 19, isDead: false, hasGoneThisPass: true },
@@ -26,7 +28,7 @@ describe("rendering the single combatants", () => {
             { name: "Roxy", currentInitiative: 24, isDead: true, hasGoneThisPass: true },
             { name: "Billy", currentInitiative: 0, isDead: true, hasGoneThisPass: true },
         ];
-        shallowNode = shallow(<CombatantList listOfCombatants={listOfCombatants} />);
+        shallowNode = shallow(<CombatantList newPassCallbackFunction={mockNewPassFunction} clearAllCallbackFunction={mockClearAllFunction} listOfCombatants={listOfCombatants} />);
     });
     function checkIfObjectIsSingleCombatant(objectData, singleCombatantElement) {
         return (objectData.name === singleCombatantElement.props.name &&
@@ -36,7 +38,7 @@ describe("rendering the single combatants", () => {
     }
 
     it("should render no SingleCombatants when the combatant list is empty", () => {
-        let emptyNode = shallow(<CombatantList combatants={[]} />);
+        let emptyNode = shallow(<CombatantList clearAllCallbackFunction={mockClearAllFunction} combatants={[]} />);
         expect(emptyNode.find('SingleCombatant').length).toEqual(0);
     });
 
@@ -44,24 +46,28 @@ describe("rendering the single combatants", () => {
         expect(shallowNode.find('SingleCombatant').length).toEqual(listOfCombatants.length);
     });
 
-    it("should render the combatants who have not gone this pass before those that have, ignoring higher initiative", () => {
-        let expectedFirstCombatant = listOfCombatants[4];
-        let expectedSecondCombatant = listOfCombatants[0];
-
-        expect(checkIfObjectIsSingleCombatant(expectedFirstCombatant, shallowNode.find('SingleCombatant').get(1)) ).toEqual(true);
-        expect(checkIfObjectIsSingleCombatant(expectedSecondCombatant, shallowNode.find('SingleCombatant').get(2)) ).toEqual(true);
+    it("should order the combatants who have not gone this pass before those that have, ignoring higher initiative", () => {
+        let resultCombatantList = shallowNode.state('listOfCombatants');
+        expect(resultCombatantList).toEqual(correctlyOrderedCombatants);
     });
 
-    it("should render the combatants who have not gone this pass in order of their currentInitiative", () => {
-        let expectedFirstCombatant = listOfCombatants[4];
-        let expectedSecondCombatant = listOfCombatants[0];
-
-
+    it("should render a button with the text 'clear all'", () => {
+        expect(shallowNode.find('button#clearAllButton').length).toEqual(1);
     });
 
     it("should call the clearAll callback when the clear all button is pressed",() => {
-
+        let fakeEvent = { target: { value: 0 } };
+        shallowNode.find('#clearAllButton').simulate('click', fakeEvent);
+        expect(mockClearAllFunction.mock.calls.length).toEqual(1);
     });
 
+    it("should render a button with the text 'new pass'", () => {
+        expect(shallowNode.find('button#newPassButton').length).toEqual(1);
+    });
 
+    it("should call the new pass callback function when the new pass button is clicked", () => {
+        let fakeEvent = { target: { value: 0 } };
+        shallowNode.find('#newPassButton').simulate('click', fakeEvent);
+        expect(mockNewPassFunction.mock.calls.length).toEqual(1);
+    });
 });
