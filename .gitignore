@@ -63,3 +63,4 @@ initiative-tracker/workLaptopEc2KeyPair.pem
 
 # any identity files
 *.pem
+initiative-tracker/usernameAndIp.txt
