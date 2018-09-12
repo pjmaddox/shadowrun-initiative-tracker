@@ -6,33 +6,22 @@ import { createStore } from "redux";
 import initiativeApp from "./stores/reducers/initiativeApp.js";
 import CombatantList from './components/CombatantList';
 
-let store = createStore(initiativeApp);
-
-class App extends Component {
-  componentDidMount() {
-    this.state = store.getState();
-    store.subscribe(this.handleStoreUpdate);
-  }
-  handleStoreUpdate() {
-    this.setState(store.getState());
-  }
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React2</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <div className="combatantAppContainer">
-            <h2>This is the container for the app itself.</h2>
-            {/* <CombatantList listOfCombatants={this.state.combatants} /> */}
-        </div>
+const App = () => {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <h1 className="App-title">Welcome to React2</h1>
+      </header>
+      <p className="App-intro">
+        To get started, edit <code>src/App.js</code> and save to reload.
+      </p>
+      <div className="combatantAppContainer">
+          <h2>This is the container for the app itself.</h2>
+          {/* <CombatantList listOfCombatants={this.state.combatants} /> */}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default App;
