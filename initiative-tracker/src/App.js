@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import SingleCombatant from './components/SingleCombatant';
-import { createStore } from "redux";
-import initiativeApp from "./stores/reducers/initiativeApp.js";
-import CombatantList from './components/CombatantList';
+import CombatantListContainer from './components/containers/CombatantListContainer';
 
 const App = () => {
   return (
@@ -19,6 +16,7 @@ const App = () => {
       <div className="combatantAppContainer">
           <h2>This is the container for the app itself.</h2>
           {/* <CombatantList listOfCombatants={this.state.combatants} /> */}
+          <CombatantListContainer />
       </div>
     </div>
   );

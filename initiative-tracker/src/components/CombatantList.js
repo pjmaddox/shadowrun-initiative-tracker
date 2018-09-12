@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SingleCombatant from './SingleCombatant';
-import { connect } from 'react-redux';
 import _ from 'lodash';
 
 export default class CombatantList extends Component {
