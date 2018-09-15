@@ -1,10 +1,11 @@
 import initiativeApp from "../stores/reducers/initiativeApp";
-import { ADD_COMBATANT, REMOVE_COMBATANT, CLEAR_ALL, TOGGLE_DEAD, NEW_PASS, TOGGLE_COMBATANT_PASS } from "../stores/actions/actions.js";
+import { ADD_COMBATANT, REMOVE_COMBATANT, CLEAR_ALL, TOGGLE_DEAD, NEW_PASS, TOGGLE_COMBATANT_PASS, newRound } from "../stores/actions/actions.js";
 import { addCombatant, removeCombatant, clearAll, toggleDead, newPass, toggleCombatantPass } from "../stores/actions/actions.js";
 import _ from 'lodash';
 
 const initialState = {
-    combatants: [ ]
+    combatants: [ ],
+    currentPassCount: 0
 };
 
 describe("initiative app reducer functions", () => {
@@ -14,8 +15,23 @@ describe("initiative app reducer functions", () => {
         previousState = {
             combatants: [ { name: "John", hasGoneThisPass: false, isDead: false, currentInitiative: 56 }, 
             { name: "Sammy", hasGoneThisPass: true, isDead: false, currentInitiative: 10 }, 
-            { name: "Juan", hasGoneThisPass: true, isDead: false, currentInitiative: 5 }  ]
+            { name: "Juan", hasGoneThisPass: true, isDead: false, currentInitiative: 5 }  ],
+            currentPass: 0
         };
+    });
+
+    it("should reset the pass counter to zero when 'NEW_ROUND'",() => {
+        let action = newRound();
+        let previousState = { currentPass: 5, combatants: previousState.combatants };
+        let result = initiativeApp(previousState, action);
+        expect(result.currentPass).toEqual(0);
+    });
+
+    it("should increment the pass count when 'NEW_PASS'", () => {
+        let action = newPass();
+        let previousState = { currentPass: 5, combatants: previousState.combatants };
+        let result = initiativeApp(previousState, action);
+        expect(result.currentPass).toEqual(6);
     });
 
     it("should remove the combatant in target index when 'REMOVE_COMBATANT",() => {

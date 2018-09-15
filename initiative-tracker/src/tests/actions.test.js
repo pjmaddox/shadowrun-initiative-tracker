@@ -11,12 +11,20 @@ import { UPDATE_INITIATIVE, updateInitiative } from '../stores/actions/actions.j
 import { TOGGLE_COMBATANT_PASS, toggleCombatantPass } from '../stores/actions/actions.js';
 import { NEW_PASS, newPass } from '../stores/actions/actions.js';
 import { TOGGLE_DEAD, toggleDead } from '../stores/actions/actions.js';
+import { NEW_ROUND, newRound } from '../stores/actions/actions.js';
 
 let expectedCombatantId, expectedCombatantName;
 
 beforeEach(() => {
     expectedCombatantId = 24;
     expectedCombatantName = "Test Combatant Name"
+});
+
+describe("newRound", () => {
+    it("should generate an action with type of 'NEW_ROUND'", () => {
+        let result = newRound();
+        expect(result.type).toEqual(NEW_ROUND);
+    });
 });
 
 describe("toggleDead", () => {

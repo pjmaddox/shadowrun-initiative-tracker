@@ -1,15 +1,17 @@
-import { ADD_COMBATANT } from '../actions/actions.js';
+import { ADD_COMBATANT, NEW_ROUND } from '../actions/actions.js';
 import { REMOVE_COMBATANT } from '../actions/actions.js';
 import { CLEAR_ALL } from '../actions/actions.js';
 import { UPDATE_INITIATIVE } from '../actions/actions.js';
 import { TOGGLE_COMBATANT_PASS } from '../actions/actions.js';
 import { NEW_PASS } from '../actions/actions.js';
 import { TOGGLE_DEAD } from '../actions/actions.js';
+import { NEW_ROUND } from '../actions/actions.js';
 import _ from "lodash";
 import { combineReducers } from "redux";
 
 const INITIAL_STATE = {
-    combatants: [  ]
+    combatants: [  ],
+    currentPassCount: 0
 };
 
 const combatants = (previousCombatantState = [], action) => {
@@ -60,6 +62,20 @@ const combatants = (previousCombatantState = [], action) => {
     }
 };
 
+const currentPass = (previousCurrentPass = 0, action) => {
+    switch(action.type) {
+        case NEW_ROUND:
+            return 0;
+            break;
+        case NEW_PASS:
+            return ++previousCurrentPass;
+            break;
+        default:
+            return previousCurrentPass;
+    }
+}
+
 export default combineReducers({
-    combatants
+    combatants,
+    currentPass
 });

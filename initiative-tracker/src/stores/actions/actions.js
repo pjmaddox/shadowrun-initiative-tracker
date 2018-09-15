@@ -6,8 +6,7 @@ export const UPDATE_INITIATIVE = "UPDATE_INITIATIVE"
 export const TOGGLE_COMBATANT_PASS = "TOGGLE_COMBATANT_PASS";
 export const NEW_PASS = "NEW_PASS";
 export const TOGGLE_DEAD = "TOGGLE_DEAD";
-
-//Const Values
+export const NEW_ROUND = "NEW_ROUND";
 
 //ActionCreators
 export const addCombatant = newCombatantName => {
@@ -69,5 +68,12 @@ export const toggleDead = (targetCombatantId) => {
         payload: {
             targetCombatantId: targetCombatantId
         }
+    };
+};
+
+export const newRound = () => {
+    return {
+        type: NEW_ROUND,
+        payload: {  }
     };
 };
