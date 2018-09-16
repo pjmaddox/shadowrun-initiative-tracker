@@ -7,7 +7,7 @@ import SingleCombatant from "../components/SingleCombatant.js";
 configure({ adapter: new Adapter() });
 
 describe("rendering the single combatants", () => {
-    let shallowNode, listOfCombatants, correctlyOrderedCombatants, mockClearAllFunction, mockNewPassFunction;
+    let shallowNode, listOfCombatants, correctlyOrderedCombatants, mockClearAllFunction;
 
     beforeEach(() => {
         mockClearAllFunction = jest.fn();
@@ -28,7 +28,7 @@ describe("rendering the single combatants", () => {
             { name: "Roxy", currentInitiative: 24, isDead: true, hasGoneThisPass: true },
             { name: "Billy", currentInitiative: 0, isDead: true, hasGoneThisPass: true },
         ];
-        shallowNode = shallow(<CombatantList newPassCallbackFunction={mockNewPassFunction} clearAllCallbackFunction={mockClearAllFunction} listOfCombatants={listOfCombatants} />);
+        shallowNode = shallow(<CombatantList clearAllCallbackFunction={mockClearAllFunction} listOfCombatants={listOfCombatants} />);
     });
     function checkIfObjectIsSingleCombatant(objectData, singleCombatantElement) {
         return (objectData.name === singleCombatantElement.props.name &&
@@ -59,15 +59,5 @@ describe("rendering the single combatants", () => {
         let fakeEvent = { target: { value: 0 } };
         shallowNode.find('#clearAllButton').simulate('click', fakeEvent);
         expect(mockClearAllFunction.mock.calls.length).toEqual(1);
-    });
-
-    it("should render a button with the text 'new pass'", () => {
-        expect(shallowNode.find('button#newPassButton').length).toEqual(1);
-    });
-
-    it("should call the new pass callback function when the new pass button is clicked", () => {
-        let fakeEvent = { target: { value: 0 } };
-        shallowNode.find('#newPassButton').simulate('click', fakeEvent);
-        expect(mockNewPassFunction.mock.calls.length).toEqual(1);
     });
 });
