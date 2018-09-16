@@ -46,5 +46,10 @@ export default class CombatantList extends Component {
 CombatantList.propTypes = {
     listOfCombatants: PropTypes.array,
     clearAllCallbackFunction: PropTypes.func.isRequired,
+    initiativeValueUpdateFunction: PropTypes.func.isRequired,
+    isDeadToggleFunction: PropTypes.func.isRequired,
+    togglePassFunction: PropTypes.func.isRequired,
+    removeCombatantFunction: PropTypes.func.isRequired
+
 
 }
