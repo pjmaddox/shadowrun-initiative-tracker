@@ -14,12 +14,12 @@ export default class CombatantList extends Component {
                 id={index}
                 name={x.name}
                 currentInitiative={x.currentInitiative}
-                hasGoneThisPass={false}
-                isDead={false}
-                initiativeValueUpdateFunction={() => { this.props.initiativeValueUpdateFunction() }}
-                isDeadToggleFunction={this.isDeadToggleFunction.bind(this)}
-                togglePassFunction={this.hasGoneToggleFunction.bind(this)}
-                removeCombatantFunction={this.removeCombatantFunction.bind(this)}
+                hasGoneThisPass={x.hasGoneThisPass}
+                isDead={x.isDead}
+                initiativeValueUpdateFunction={(newValue) => { this.props.initiativeValueUpdateFunction(x.id, newValue) }}
+                isDeadToggleFunction={() => { this.props.isDeadToggleFunction(x.id); }}
+                togglePassFunction={() => { this.props.hasGoneToggleFunction(x.id); }}
+                removeCombatantFunction={() => { this.props.removeCombatantFunction(x.id); }}
         /></div>);
         });
         return (
@@ -45,5 +45,6 @@ export default class CombatantList extends Component {
 
 CombatantList.propTypes = {
     listOfCombatants: PropTypes.array,
-    clearAllCallbackFunction: PropTypes.func.isRequired
+    clearAllCallbackFunction: PropTypes.func.isRequired,
+
 }

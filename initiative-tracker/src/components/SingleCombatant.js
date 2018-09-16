@@ -18,13 +18,13 @@ class SingleCombatant extends Component {
                     <div className="row">
                         <span>{this.props.name}</span>
 
-                        <input type="text" className="currentInitiativeDisplay" name="initiativeDisplay" value={this.props.currentInitiative} onChange={(defaultEvent) => { this.updateInitiative(defaultEvent.target.value) }}/>
+                        <input type="text" className="currentInitiativeDisplay" name="initiativeDisplay" value={this.props.currentInitiative} onChange={(defaultEvent) => { this.props.updateInitiative(defaultEvent.target.value) }}/>
 
                         <label for="hasGoneThisPass">Gone This Pass?</label>
-                        <input type="checkbox" name="hasGoneThisPass" className="hasGoneThisPassCheckbox" checked={this.props.hasGoneThisPass} onChange={(defaultEvent) => { this.toggleHasGone(); }}/>
+                        <input type="checkbox" name="hasGoneThisPass" className="hasGoneThisPassCheckbox" checked={this.props.hasGoneThisPass} onChange={(defaultEvent) => { this.props.toggleHasGone(); }}/>
 
                         <label for="isDead">Dead?</label>
-                        <input type="checkbox" name="isDead" className="toggleDeadCheckbox" checked={this.props.isDead} onChange={(event) => { this.toggleIsDead(); }}/>
+                        <input type="checkbox" name="isDead" className="toggleDeadCheckbox" checked={this.props.isDead} onChange={(event) => { this.props.toggleIsDead(); }}/>
                         
                         <button className="removeCombatantButton" onClick={(event) => { this.props.removeCombatantFunction(event.target.value); }}>Remove</button>
                     </div>
