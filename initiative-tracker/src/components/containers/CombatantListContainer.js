@@ -8,7 +8,7 @@ const getOrderedCombatants = (currentStateOrder) => {
 };
 
 const mapStateToProps = state => ({
-    listOfCombatants: getOrderedCombatants(state.CombatantList),
+    listOfCombatants: getOrderedCombatants(state.combatants),
 });
 
 const mapDispatchToProps = dispatch => ({
