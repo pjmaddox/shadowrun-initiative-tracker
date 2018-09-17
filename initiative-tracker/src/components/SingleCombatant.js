@@ -2,15 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 class SingleCombatant extends Component {
-    toggleHasGone() {
-        this.props.togglePassFunction(this.props.id);
-    }
-    toggleIsDead() {
-        this.props.isDeadToggleFunction(this.props.id);
-    }
-    updateInitiative(newValue) {
-        this.props.initiativeValueUpdateFunction(this.props.id, newValue);
-    }
     render() {
         return (
             <div className="combatantContainer row">

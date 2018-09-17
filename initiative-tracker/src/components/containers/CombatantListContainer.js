@@ -1,18 +1,22 @@
 import { connect } from 'react-redux';
 import CombatantList from "../CombatantList.js";
 import _ from 'lodash';
-import { clearAll } from "../../stores/actions/actions.js";
+import { clearAll, updateInitiative, toggleDead, toggleCombatantPass, removeCombatant } from "../../stores/actions/actions.js";
 
 const getOrderedCombatants = (currentStateOrder) => {
-    return _.sortBy(this.props.listOfCombatants, [ (o) => { return o.isDead; }, (o) => { return o.hasGoneThisPass; }, (o) => { return -o.currentInitiative } ], 'asc');
+    return _.sortBy(currentStateOrder, [ (o) => { return o.isDead; }, (o) => { return o.hasGoneThisPass; }, (o) => { return -o.currentInitiative } ], 'asc');
 };
 
 const mapStateToProps = state => ({
-    listOfCombatants: getOrderedCombatants(state.CombatantList)
+    listOfCombatants: getOrderedCombatants(state.CombatantList),
 });
 
 const mapDispatchToProps = dispatch => ({
-    clearAllCallbackFunction: () => dispatch(clearAll())
+    clearAllCallbackFunction: () => dispatch(clearAll()),
+    initiativeValueUpdateFunction: (id, newValue) => dispath(updateInitiative(id, newValue)),
+    isDeadToggleFunction: (id) => { dispatch(toggleDead(id)); },
+    togglePassFunction: (id) => { dispatch(toggleCombatantPass(id)); },
+    removeCombatantFunction: (id) => { dispatch(removeCombatant(id)); }
 });
 
 const CombatantListContainer = connect(

@@ -4,12 +4,8 @@ import SingleCombatant from './SingleCombatant';
 import _ from 'lodash';
 
 export default class CombatantList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { listOfCombatants: [  ] };
-    }
     render() {
-        let list = _.map(this.state.listOfCombatants, (x, index) => {
+        let list = _.map(this.props.listOfCombatants, (x, index) => {
             return (<div className="row" key={index}><SingleCombatant  
                 id={index}
                 name={x.name}
