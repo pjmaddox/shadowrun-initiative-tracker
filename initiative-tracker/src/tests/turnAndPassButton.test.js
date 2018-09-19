@@ -10,7 +10,7 @@ describe("TurnAndPassButton Render", () => {
 
     beforeEach(() => {
         mockNewPassCallback = jest.fn();
-        mockNewTurnCallback = jestn.fn();
+        mockNewTurnCallback = jest.fn();
         shallowNode = shallow(<TurnAndPassButton onNewTurnClick={mockNewTurnCallback} onNewPassClick={mockNewPassCallback} />);
     });
 

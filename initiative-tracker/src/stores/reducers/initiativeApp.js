@@ -1,4 +1,4 @@
-import { ADD_COMBATANT, NEW_ROUND } from '../actions/actions.js';
+import { ADD_COMBATANT } from '../actions/actions.js';
 import { REMOVE_COMBATANT } from '../actions/actions.js';
 import { CLEAR_ALL } from '../actions/actions.js';
 import { UPDATE_INITIATIVE } from '../actions/actions.js';

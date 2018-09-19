@@ -3,13 +3,15 @@ import { connect } from "react-redux";
 import { addCombatant } from "../../stores/actions/actions.js";
 
 
-const mapStateToProps = state => ({
-    
-});
+const mapStateToProps = state => {
+    return {  };
+};
 
-const mapDispatchToProps = dispatch => ({
-    onSubmitFunction: (newName) => { dispatch(addCombatant(newName)); }
-});
+const mapDispatchToProps = dispatch => {
+    return {
+        onSubmitFunction: (newName) => { dispatch(addCombatant(newName)); }
+    };
+};
 
 export default connect(
     mapStateToProps,

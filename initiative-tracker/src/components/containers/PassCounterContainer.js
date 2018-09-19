@@ -1,13 +1,15 @@
 import { connect } from "react-redux";
 import PassCounter from "../PassCounter.js";
 
-const mapStateToProps = state => ({
-   passCount: state.currentPass 
-});
+const mapStateToProps = state => {
+    return {
+        passCount: state.currentPass
+    }
+};
 
-const mapDispatchToProps = dispatch => ({
-    
-});
+const mapDispatchToProps = dispatch => {
+    return {  }
+};
 
 const PassCounterContainer = connect(
     mapStateToProps,

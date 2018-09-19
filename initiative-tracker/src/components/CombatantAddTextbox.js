@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 export default class CombatantAddTextBox extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { currentText: "" };
+    }
     componentDidMount() {
         this.setState({ currentText: "" });
     }
